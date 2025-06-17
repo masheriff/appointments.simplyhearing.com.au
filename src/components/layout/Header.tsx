@@ -7,7 +7,7 @@ export const Header = () => {
       {/* Logo */}
       <div className="flex items-center">
         <img 
-          src="/src/assets/logo/simply-hearing-logo.webp" 
+          src="/logo/simply-hearing-logo.webp" 
           alt="Simply Hearing" 
           className="h-10 w-auto"
         />
