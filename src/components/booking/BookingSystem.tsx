@@ -171,24 +171,28 @@ export const BookingSystem: React.FC = () => {
               currentStep={currentStep}
               title="Service"
               icon={Search}
+              isBookingComplete={bookAppointmentMutation.isSuccess}
             />
             <ProgressStep
               step="location"
               currentStep={currentStep}
               title="Location"
               icon={MapPin}
+              isBookingComplete={bookAppointmentMutation.isSuccess}
             />
             <ProgressStep
               step="time"
               currentStep={currentStep}
               title="Date & Time"
               icon={Calendar}
+              isBookingComplete={bookAppointmentMutation.isSuccess}
             />
             <ProgressStep
               step="details"
               currentStep={currentStep}
               title="Details"
               icon={User}
+              isBookingComplete={bookAppointmentMutation.isSuccess}
             />
           </div>
         </div>
@@ -232,6 +236,7 @@ export const BookingSystem: React.FC = () => {
         selectedLocation={bookingState.selectedLocation}
         selectedDate={bookingState.selectedDate}
         selectedTimeSlot={bookingState.selectedTimeSlot}
+        isBookingComplete={bookAppointmentMutation.isSuccess}
       />
     </div>
   );

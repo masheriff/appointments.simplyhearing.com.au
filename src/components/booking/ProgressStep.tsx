@@ -8,20 +8,23 @@ interface ProgressStepProps {
   currentStep: BookingStep;
   title: string;
   icon: React.ElementType;
+  isBookingComplete?: boolean;
 }
 
 export const ProgressStep: React.FC<ProgressStepProps> = ({ 
   step, 
   currentStep, 
   title, 
-  icon: Icon 
+  icon: Icon,
+  isBookingComplete = false
 }) => {
   const stepOrder = ['service', 'location', 'time', 'details'];
   const currentIndex = stepOrder.indexOf(currentStep);
   const stepIndex = stepOrder.indexOf(step);
   
-  const isCompleted = stepIndex < currentIndex;
-  const isCurrent = step === currentStep;
+  // If booking is complete, all steps should be marked as completed
+  const isCompleted = isBookingComplete || stepIndex < currentIndex;
+  const isCurrent = !isBookingComplete && step === currentStep;
   
   return (
     <div className="flex items-center">
@@ -32,7 +35,10 @@ export const ProgressStep: React.FC<ProgressStepProps> = ({
       `}>
         {isCompleted ? <CheckCircle className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
       </div>
-      <span className={`ml-3 text-sm font-medium ${isCurrent ? 'text-black' : 'text-gray-500'}`}>
+      <span className={`ml-3 text-sm font-medium ${
+        isCompleted ? 'text-[#D1AA6D]' : 
+        isCurrent ? 'text-black' : 'text-gray-500'
+      }`}>
         {title}
       </span>
     </div>
