@@ -1,10 +1,10 @@
 import { Layout } from "./components/layout";
-import { ComingSoon } from "./components/ComingSoon";
+import { BookingSystem } from "./components/booking/BookingSystem";
 
 function App() {
   return (
     <Layout>
-      <ComingSoon />
+      <BookingSystem />
     </Layout>
   );
 }
