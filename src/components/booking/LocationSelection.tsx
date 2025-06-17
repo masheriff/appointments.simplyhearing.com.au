@@ -72,15 +72,15 @@ export const LocationSelection: React.FC<LocationSelectionProps> = ({
           <p>No locations available at the moment.</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 overflow-y-auto h-[55vh] px-4">
           {locations.map((location) => (
             <div
               key={location.id}
               onClick={() => onLocationSelect(location)}
               className={`
-                p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-gray-300
+                p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-black
                 ${selectedLocation?.id === location.id 
-                  ? 'border-black bg-gray-50' 
+                  ? 'border-[#D1AA6D] bg-[#D1AA6D]/10'  
                   : 'border-gray-200'
                 }
               `}

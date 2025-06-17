@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <ProgressProvider
         height="3px"
-        color="#3b82f6"
+        color="#D1AA6D"
         options={{
           showSpinner: false,
           easing: "ease-in-out",

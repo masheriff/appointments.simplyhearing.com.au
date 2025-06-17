@@ -84,15 +84,15 @@ export const ServiceSelection: React.FC<ServiceSelectionProps> = ({
           <p>No appointment types found matching your search.</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 overflow-y-auto h-[55vh] px-4">
           {filteredReasons.map((reason) => (
             <div
               key={reason.appointmentReasonId}
               onClick={() => onReasonSelect(reason)}
               className={`
-                p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-gray-300
+                p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-black
                 ${selectedReason?.appointmentReasonId === reason.appointmentReasonId 
-                  ? 'border-black bg-gray-50' 
+                  ? 'border-[#D1AA6D] bg-[#D1AA6D]/10' 
                   : 'border-gray-200'
                 }
               `}
@@ -102,7 +102,7 @@ export const ServiceSelection: React.FC<ServiceSelectionProps> = ({
                   <h3 className="font-medium text-gray-900">{reason.appointmentReason}</h3>
                   <p className="text-sm text-gray-500 mt-1">{reason.category}</p>
                 </div>
-                <span className="text-sm text-gray-500">{reason.duration} min</span>
+                <span className="text-sm text-gray-900">{reason.duration} min</span>
               </div>
             </div>
           ))}

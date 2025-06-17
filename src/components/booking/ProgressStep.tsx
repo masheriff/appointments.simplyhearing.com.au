@@ -27,8 +27,8 @@ export const ProgressStep: React.FC<ProgressStepProps> = ({
     <div className="flex items-center">
       <div className={`
         flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors
-        ${isCompleted ? 'bg-black border-black text-white' : 
-          isCurrent ? 'border-black text-black' : 'border-gray-300 text-gray-400'}
+        ${isCompleted ? 'bg-[#D1AA6D] border-[#D1AA6D] text-white' : 
+          isCurrent ? 'bg-black border-black text-white' : 'border-gray-300 text-gray-400'}
       `}>
         {isCompleted ? <CheckCircle className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
       </div>

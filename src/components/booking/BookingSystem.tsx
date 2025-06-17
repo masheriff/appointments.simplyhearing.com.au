@@ -1,30 +1,30 @@
 // src/components/booking/BookingSystem.tsx
-import React, { useState } from 'react';
-import { Search, MapPin, Calendar, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useBookAppointment } from '@/hooks';
-import { createBookingRequest } from '@/lib/transformers';
+import React, { useState } from "react";
+import { Search, MapPin, Calendar, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useBookAppointment } from "@/hooks";
+import { createBookingRequest } from "@/lib/transformers";
 
 // Component imports
-import { ProgressStep } from './ProgressStep';
-import { ServiceSelection } from './ServiceSelection';
-import { LocationSelection } from './LocationSelection';
-import { TimeSelection } from './TimeSelection';
-import { CustomerDetailsForm } from './CustomerDetailsForm';
-import { AppointmentSummary } from './AppointmentSummary';
+import { ProgressStep } from "./ProgressStep";
+import { ServiceSelection } from "./ServiceSelection";
+import { LocationSelection } from "./LocationSelection";
+import { TimeSelection } from "./TimeSelection";
+import { CustomerDetailsForm } from "./CustomerDetailsForm";
+import { AppointmentSummary } from "./AppointmentSummary";
 
 // Types
-import type { BookingStep, BookingState, CustomerForm } from '@/types/booking';
-import type { AppointmentReason, Location, TimeSlot } from '@/types/api';
+import type { BookingStep, BookingState, CustomerForm } from "@/types/booking";
+import type { AppointmentReason, Location, TimeSlot } from "@/types/api";
 
 export const BookingSystem: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<BookingStep>('service');
+  const [currentStep, setCurrentStep] = useState<BookingStep>("service");
   const [bookingState, setBookingState] = useState<BookingState>({
     selectedReason: null,
     selectedLocation: null,
     selectedDate: null,
     selectedTimeSlot: null,
-    searchTerm: ''
+    searchTerm: "",
   });
 
   // Booking mutation
@@ -32,16 +32,21 @@ export const BookingSystem: React.FC = () => {
 
   const canContinue = (): boolean => {
     switch (currentStep) {
-      case 'service': return bookingState.selectedReason !== null;
-      case 'location': return bookingState.selectedLocation !== null;
-      case 'time': return bookingState.selectedTimeSlot !== null;
-      case 'details': return false; // Handled by form validation
-      default: return false;
+      case "service":
+        return bookingState.selectedReason !== null;
+      case "location":
+        return bookingState.selectedLocation !== null;
+      case "time":
+        return bookingState.selectedTimeSlot !== null;
+      case "details":
+        return false; // Handled by form validation
+      default:
+        return false;
     }
   };
 
   const handleContinue = () => {
-    const steps: BookingStep[] = ['service', 'location', 'time', 'details'];
+    const steps: BookingStep[] = ["service", "location", "time", "details"];
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex < steps.length - 1) {
       setCurrentStep(steps[currentIndex + 1]);
@@ -49,7 +54,7 @@ export const BookingSystem: React.FC = () => {
   };
 
   const handleBack = () => {
-    const steps: BookingStep[] = ['service', 'location', 'time', 'details'];
+    const steps: BookingStep[] = ["service", "location", "time", "details"];
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex > 0) {
       setCurrentStep(steps[currentIndex - 1]);
@@ -58,43 +63,48 @@ export const BookingSystem: React.FC = () => {
 
   // Handler functions
   const handleReasonSelect = (reason: AppointmentReason) => {
-    setBookingState(prev => ({ ...prev, selectedReason: reason }));
+    setBookingState((prev) => ({ ...prev, selectedReason: reason }));
   };
 
   const handleLocationSelect = (location: Location) => {
-    setBookingState(prev => ({ ...prev, selectedLocation: location }));
+    setBookingState((prev) => ({ ...prev, selectedLocation: location }));
   };
 
   const handleDateSelect = (date: string) => {
-    setBookingState(prev => ({
+    setBookingState((prev) => ({
       ...prev,
       selectedDate: date,
       // Reset time slot when date changes
-      selectedTimeSlot: prev.selectedDate !== date ? null : prev.selectedTimeSlot
+      selectedTimeSlot:
+        prev.selectedDate !== date ? null : prev.selectedTimeSlot,
     }));
   };
 
   const handleTimeSlotSelect = (timeSlot: TimeSlot) => {
-    setBookingState(prev => ({ ...prev, selectedTimeSlot: timeSlot }));
+    setBookingState((prev) => ({ ...prev, selectedTimeSlot: timeSlot }));
   };
 
   const handleSearchChange = (term: string) => {
-    setBookingState(prev => ({ ...prev, searchTerm: term }));
+    setBookingState((prev) => ({ ...prev, searchTerm: term }));
   };
 
   // Form submission
   const handleFormSubmit = async (customerData: CustomerForm) => {
-    if (!bookingState.selectedTimeSlot || !bookingState.selectedLocation || !bookingState.selectedReason) {
-      throw new Error('Missing booking information');
+    if (
+      !bookingState.selectedTimeSlot ||
+      !bookingState.selectedLocation ||
+      !bookingState.selectedReason
+    ) {
+      throw new Error("Missing booking information");
     }
 
     const bookingRequest = createBookingRequest(
       bookingState.selectedTimeSlot,
-      bookingState.selectedLocation.eposNumber || '',
+      bookingState.selectedLocation.eposNumber || "",
       bookingState.selectedReason.appointmentReasonId,
       customerData,
-      '', // campaignId - optional
-      customerData.notes || ''
+      "", // campaignId - optional
+      customerData.notes || ""
     );
 
     await bookAppointmentMutation.mutateAsync(bookingRequest);
@@ -102,7 +112,7 @@ export const BookingSystem: React.FC = () => {
 
   const renderCurrentStep = () => {
     switch (currentStep) {
-      case 'service':
+      case "service":
         return (
           <ServiceSelection
             selectedReason={bookingState.selectedReason}
@@ -111,16 +121,16 @@ export const BookingSystem: React.FC = () => {
             onSearchChange={handleSearchChange}
           />
         );
-      
-      case 'location':
+
+      case "location":
         return (
           <LocationSelection
             selectedLocation={bookingState.selectedLocation}
             onLocationSelect={handleLocationSelect}
           />
         );
-      
-      case 'time':
+
+      case "time":
         return (
           <TimeSelection
             selectedTimeSlot={bookingState.selectedTimeSlot}
@@ -128,11 +138,13 @@ export const BookingSystem: React.FC = () => {
             selectedDate={bookingState.selectedDate}
             onDateSelect={handleDateSelect}
             locationId={bookingState.selectedLocation?.id}
-            appointmentReasonId={bookingState.selectedReason?.appointmentReasonId}
+            appointmentReasonId={
+              bookingState.selectedReason?.appointmentReasonId
+            }
           />
         );
-      
-      case 'details':
+
+      case "details":
         return (
           <CustomerDetailsForm
             onSubmit={handleFormSubmit}
@@ -141,66 +153,66 @@ export const BookingSystem: React.FC = () => {
             submitSuccess={bookAppointmentMutation.isSuccess}
           />
         );
-      
+
       default:
         return null;
     }
   };
 
   return (
-    <div className="h-screen bg-white flex">
+    <div className="h-[calc(100vh-64px)] bg-white container sm:mx-auto mx-4 flex border">
       {/* Left Panel - Main Flow */}
       <div className="flex-1 flex flex-col">
         {/* Progress Bar */}
-        <div className="border-b border-gray-200 p-6">
-          <div className="flex justify-between max-w-2xl">
-            <ProgressStep 
-              step="service" 
-              currentStep={currentStep} 
-              title="Service" 
-              icon={Search} 
+        <div className="border-b border-gray-200  w-full ">
+          <div className="max-w-3xl sm:mx-auto mx-4  flex items-center h-[64px] justify-between">
+            <ProgressStep
+              step="service"
+              currentStep={currentStep}
+              title="Service"
+              icon={Search}
             />
-            <ProgressStep 
-              step="location" 
-              currentStep={currentStep} 
-              title="Location" 
-              icon={MapPin} 
+            <ProgressStep
+              step="location"
+              currentStep={currentStep}
+              title="Location"
+              icon={MapPin}
             />
-            <ProgressStep 
-              step="time" 
-              currentStep={currentStep} 
-              title="Date & Time" 
-              icon={Calendar} 
+            <ProgressStep
+              step="time"
+              currentStep={currentStep}
+              title="Date & Time"
+              icon={Calendar}
             />
-            <ProgressStep 
-              step="details" 
-              currentStep={currentStep} 
-              title="Details" 
-              icon={User} 
+            <ProgressStep
+              step="details"
+              currentStep={currentStep}
+              title="Details"
+              icon={User}
             />
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-6 overflow-y-auto">
-          <div className="max-w-2xl">
-            {renderCurrentStep()}
-          </div>
+        <div className="flex-1 p-4 overflow-y-auto">
+          <div className="max-w-xl mx-auto">{renderCurrentStep()}</div>
         </div>
 
         {/* Navigation */}
         {!bookAppointmentMutation.isSuccess && (
-          <div className="border-t border-gray-200 p-6">
-            <div className="flex justify-between max-w-2xl">
+          <div className="border-t border-gray-200 w-full">
+            <div className="max-w-3xl sm:mx-auto mx-4  flex items-center h-[64px] justify-between">
               <Button
                 variant="outline"
                 onClick={handleBack}
-                disabled={currentStep === 'service' || bookAppointmentMutation.isPending}
+                disabled={
+                  currentStep === "service" || bookAppointmentMutation.isPending
+                }
                 className="px-6"
               >
                 Back
               </Button>
-              {currentStep !== 'details' && (
+              {currentStep !== "details" && (
                 <Button
                   onClick={handleContinue}
                   disabled={!canContinue() || bookAppointmentMutation.isPending}

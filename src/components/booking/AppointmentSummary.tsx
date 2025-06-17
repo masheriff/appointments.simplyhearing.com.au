@@ -1,7 +1,7 @@
 // src/components/booking/AppointmentSummary.tsx
-import React from 'react';
-import { MapPin, Clock, User, Calendar } from 'lucide-react';
-import type { AppointmentReason, Location, TimeSlot } from '@/types/api';
+import React from "react";
+import { MapPin, Clock, User, Calendar } from "lucide-react";
+import type { AppointmentReason, Location, TimeSlot } from "@/types/api";
 
 interface AppointmentSummaryProps {
   selectedReason: AppointmentReason | null;
@@ -14,7 +14,7 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
   selectedReason,
   selectedLocation,
   selectedDate,
-  selectedTimeSlot
+  selectedTimeSlot,
 }) => {
   const formatLocationAddress = (location: Location): string => {
     const addressParts = [
@@ -22,33 +22,33 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
       location.address2,
       location.address3,
       location.city,
-      location.zipCode
+      location.zipCode,
     ].filter(Boolean);
-    
-    return addressParts.join(', ');
+
+    return addressParts.join(", ");
   };
 
   const formatDateForSummary = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
   const formatTimeSlot = (slot: TimeSlot) => {
     const start = new Date(slot.startDateTime);
     const end = new Date(slot.endDateTime);
-    return `${start.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    })} - ${end.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
+    return `${start.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })} - ${end.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     })}`;
   };
 
@@ -57,16 +57,66 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
       <div className="p-6 space-y-6">
         <div className="flex items-center space-x-2">
           <Calendar className="w-5 h-5 text-gray-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Appointment Summary</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            Appointment Summary
+          </h3>
         </div>
-        
+        {/* Progress Indicator */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <h4 className="font-medium text-gray-900 mb-3">Booking Progress</h4>
+          <div className="space-y-2">
+            <div
+              className={`flex items-center space-x-2 text-sm ${
+                selectedReason ? "text-green-600" : "text-gray-400"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  selectedReason ? "bg-green-500" : "bg-gray-300"
+                }`}
+              ></div>
+              <span>Service Selected</span>
+            </div>
+            <div
+              className={`flex items-center space-x-2 text-sm ${
+                selectedLocation ? "text-green-600" : "text-gray-400"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  selectedLocation ? "bg-green-500" : "bg-gray-300"
+                }`}
+              ></div>
+              <span>Location Selected</span>
+            </div>
+            <div
+              className={`flex items-center space-x-2 text-sm ${
+                selectedTimeSlot ? "text-green-600" : "text-gray-400"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full ${
+                  selectedTimeSlot ? "bg-green-500" : "bg-gray-300"
+                }`}
+              ></div>
+              <span>Time Selected</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm text-gray-400">
+              <div className="w-4 h-4 rounded-full bg-gray-300"></div>
+              <span>Details & Booking</span>
+            </div>
+          </div>
+        </div>
+
         {selectedReason && (
           <div className="bg-white p-4 rounded-lg border shadow-sm">
             <div className="flex items-start space-x-3">
               <User className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
               <div>
                 <h4 className="font-medium text-gray-900 mb-1">Service</h4>
-                <p className="text-sm text-gray-600">{selectedReason.appointmentReason}</p>
+                <p className="text-sm text-gray-600">
+                  {selectedReason.appointmentReason}
+                </p>
                 <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
                   <span>{selectedReason.duration} minutes</span>
                   <span>•</span>
@@ -103,8 +153,12 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
               <Clock className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
               <div>
                 <h4 className="font-medium text-gray-900 mb-1">Date & Time</h4>
-                <p className="text-sm text-gray-600">{formatDateForSummary(selectedDate)}</p>
-                <p className="text-xs text-gray-500 mt-1">{formatTimeSlot(selectedTimeSlot)}</p>
+                <p className="text-sm text-gray-600">
+                  {formatDateForSummary(selectedDate)}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {formatTimeSlot(selectedTimeSlot)}
+                </p>
               </div>
             </div>
           </div>
@@ -128,7 +182,7 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
         )}
 
         {/* Contact Information */}
-        <div className="bg-white p-4 rounded-lg border shadow-sm">
+        {/* <div className="bg-white p-4 rounded-lg border shadow-sm">
           <h4 className="font-medium text-gray-900 mb-3">Need Help?</h4>
           <div className="space-y-2 text-sm">
             <div className="flex items-center space-x-2">
@@ -144,30 +198,7 @@ export const AppointmentSummary: React.FC<AppointmentSummaryProps> = ({
               </a>
             </div>
           </div>
-        </div>
-
-        {/* Progress Indicator */}
-        <div className="bg-white p-4 rounded-lg border shadow-sm">
-          <h4 className="font-medium text-gray-900 mb-3">Booking Progress</h4>
-          <div className="space-y-2">
-            <div className={`flex items-center space-x-2 text-sm ${selectedReason ? 'text-green-600' : 'text-gray-400'}`}>
-              <div className={`w-4 h-4 rounded-full ${selectedReason ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-              <span>Service Selected</span>
-            </div>
-            <div className={`flex items-center space-x-2 text-sm ${selectedLocation ? 'text-green-600' : 'text-gray-400'}`}>
-              <div className={`w-4 h-4 rounded-full ${selectedLocation ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-              <span>Location Selected</span>
-            </div>
-            <div className={`flex items-center space-x-2 text-sm ${selectedTimeSlot ? 'text-green-600' : 'text-gray-400'}`}>
-              <div className={`w-4 h-4 rounded-full ${selectedTimeSlot ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-              <span>Time Selected</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
-              <div className="w-4 h-4 rounded-full bg-gray-300"></div>
-              <span>Details & Booking</span>
-            </div>
-          </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

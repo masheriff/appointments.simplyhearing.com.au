@@ -1,9 +1,12 @@
-// src/components/booking/TimeSelection.tsx
-import React, { useState, useEffect } from 'react';
-import { Calendar, Clock } from 'lucide-react';
+// src/components/booking/TimeSelection.tsx - Fixed TypeScript errors
+import React, { useState } from 'react';
+import { Calendar, Clock, Loader2 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { SimpleCalendar } from './SimpleCalendar';
-import type { TimeSlot } from '@/types/api';
+import { useTimeSlots } from '@/hooks';
+import { formatDateForApi } from '@/lib/formatters';
+import type { TimeSlot, TimeSlotsParams, Location } from '@/types/api';
 
 interface TimeSelectionProps {
   selectedTimeSlot: TimeSlot | null;
@@ -12,81 +15,57 @@ interface TimeSelectionProps {
   onDateSelect: (date: string) => void;
   locationId?: string;
   appointmentReasonId?: string;
+  selectedLocation?: Location | null;
 }
-
-// Mock time slots for now - will be replaced with real API
-const mockTimeSlots: Omit<TimeSlot, 'startDateTime' | 'endDateTime'>[] = [
-  { startDateTime: '09:00', endDateTime: '09:30', resourceIds: ['1'] },
-  { startDateTime: '10:00', endDateTime: '10:30', resourceIds: ['1'] },
-  { startDateTime: '11:00', endDateTime: '11:30', resourceIds: ['1'] },
-  { startDateTime: '14:00', endDateTime: '14:30', resourceIds: ['1'] },
-  { startDateTime: '15:00', endDateTime: '15:30', resourceIds: ['1'] },
-  { startDateTime: '16:00', endDateTime: '16:30', resourceIds: ['1'] },
-];
 
 export const TimeSelection: React.FC<TimeSelectionProps> = ({
   selectedTimeSlot,
   onTimeSlotSelect,
   selectedDate,
   onDateSelect,
-  locationId,
-  appointmentReasonId
+  appointmentReasonId,
+  selectedLocation
 }) => {
-  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>([]);
-  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
-
-  // Mock available dates - in real app, this would come from API
-  const availableDates = [
+  const [availableDates] = useState<string[]>([
     '2025-06-26', '2025-06-27', '2025-06-30', 
     '2025-07-01', '2025-07-02', '2025-07-03',
     '2025-07-07', '2025-07-08', '2025-07-09'
-  ];
+  ]);
+
+  // Create params for the API call
+  const timeSlotsParams: TimeSlotsParams | null = React.useMemo(() => {
+    if (!selectedLocation || !appointmentReasonId || !selectedDate) {
+      return null;
+    }
+
+    // Use the location's epos number
+    const eposNumber = selectedLocation.eposNumber;
+    if (!eposNumber) {
+      return null;
+    }
+
+    return {
+      epos: eposNumber,
+      appointmentReasonId,
+      startDate: formatDateForApi(new Date(selectedDate)),
+      numberOfDays: 1,
+    };
+  }, [selectedLocation, appointmentReasonId, selectedDate]);
+
+  // Fetch time slots using the hook
+  const { 
+    data: timeSlots = [], 
+    isLoading: isLoadingSlots, 
+    error: timeSlotsError 
+  } = useTimeSlots(timeSlotsParams);
 
   // Handle date selection
   const handleDateSelect = (date: string) => {
     onDateSelect(date);
     
-    // Reset selected time slot when date changes
-    if (selectedTimeSlot) {
-      onTimeSlotSelect(null as any);
-    }
-    
-    // Load slots for the selected date
-    loadTimeSlots(date);
+    // Reset selected time slot when date changes - we need to handle this at the parent level
+    // For now, we'll just let the parent component handle the reset
   };
-
-  // Mock function to load time slots - replace with real API call
-  const loadTimeSlots = async (date: string) => {
-    if (!locationId || !appointmentReasonId) return;
-    
-    setIsLoadingSlots(true);
-    
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Mock: Create time slots for the selected date
-      const slotsForDate: TimeSlot[] = mockTimeSlots.map((slot, index) => ({
-        startDateTime: `${date}T${slot.startDateTime}:00`,
-        endDateTime: `${date}T${slot.endDateTime}:00`,
-        resourceIds: slot.resourceIds
-      }));
-      
-      setAvailableSlots(slotsForDate);
-    } catch (error) {
-      console.error('Failed to load time slots:', error);
-      setAvailableSlots([]);
-    } finally {
-      setIsLoadingSlots(false);
-    }
-  };
-
-  // Load slots when component mounts with existing selected date
-  useEffect(() => {
-    if (selectedDate && locationId && appointmentReasonId) {
-      loadTimeSlots(selectedDate);
-    }
-  }, [selectedDate, locationId, appointmentReasonId]);
 
   const formatSelectedDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -134,14 +113,22 @@ export const TimeSelection: React.FC<TimeSelectionProps> = ({
               Available Times for {formatSelectedDate(selectedDate)}
             </Label>
             
+            {timeSlotsError && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>
+                  Failed to load time slots. Please try selecting a different date.
+                </AlertDescription>
+              </Alert>
+            )}
+            
             {isLoadingSlots ? (
               <div className="text-center py-8 text-gray-500">
-                <Clock className="w-8 h-8 mx-auto mb-2 opacity-50 animate-pulse" />
+                <Loader2 className="w-8 h-8 mx-auto mb-2 animate-spin" />
                 <p>Loading available time slots...</p>
               </div>
-            ) : availableSlots.length > 0 ? (
+            ) : timeSlots.length > 0 ? (
               <div className="grid grid-cols-3 gap-3">
-                {availableSlots.map((slot, index) => (
+                {timeSlots.map((slot, index) => (
                   <button
                     key={`${slot.startDateTime}-${index}`}
                     onClick={() => onTimeSlotSelect(slot)}
@@ -161,6 +148,7 @@ export const TimeSelection: React.FC<TimeSelectionProps> = ({
               <div className="text-center py-8 text-gray-500">
                 <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 <p>No available time slots for this date</p>
+                <p className="text-sm mt-1">Please try selecting a different date</p>
               </div>
             )}
           </div>
