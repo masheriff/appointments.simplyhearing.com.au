@@ -137,7 +137,7 @@ export const BookingSystem: React.FC = () => {
             onTimeSlotSelect={handleTimeSlotSelect}
             selectedDate={bookingState.selectedDate}
             onDateSelect={handleDateSelect}
-            locationId={bookingState.selectedLocation?.id}
+            selectedLocation={bookingState.selectedLocation}
             appointmentReasonId={
               bookingState.selectedReason?.appointmentReasonId
             }

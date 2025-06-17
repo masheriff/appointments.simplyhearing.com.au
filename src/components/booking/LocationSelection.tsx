@@ -1,9 +1,9 @@
 // src/components/booking/LocationSelection.tsx
-import React from 'react';
-import { MapPin, Loader2 } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useLocations } from '@/hooks';
-import type { Location } from '@/types/api';
+import React from "react";
+import { MapPin, Loader2, Phone } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useLocations } from "@/hooks";
+import type { Location } from "@/types/api";
 
 interface LocationSelectionProps {
   selectedLocation: Location | null;
@@ -12,7 +12,7 @@ interface LocationSelectionProps {
 
 export const LocationSelection: React.FC<LocationSelectionProps> = ({
   selectedLocation,
-  onLocationSelect
+  onLocationSelect,
 }) => {
   const { data: locations, isLoading, error } = useLocations();
 
@@ -20,7 +20,9 @@ export const LocationSelection: React.FC<LocationSelectionProps> = ({
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Location</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Select Location
+          </h2>
           <p className="text-gray-600">Choose your preferred clinic location</p>
         </div>
         <div className="flex items-center justify-center py-12">
@@ -35,12 +37,15 @@ export const LocationSelection: React.FC<LocationSelectionProps> = ({
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Location</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Select Location
+          </h2>
           <p className="text-gray-600">Choose your preferred clinic location</p>
         </div>
         <Alert variant="destructive">
           <AlertDescription>
-            Failed to load locations. Please refresh the page or try again later.
+            Failed to load locations. Please refresh the page or try again
+            later.
           </AlertDescription>
         </Alert>
       </div>
@@ -53,16 +58,18 @@ export const LocationSelection: React.FC<LocationSelectionProps> = ({
       location.address2,
       location.address3,
       location.city,
-      location.zipCode
+      location.zipCode,
     ].filter(Boolean);
-    
-    return addressParts.join(', ');
+
+    return addressParts.join(", ");
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Select Location</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Select Location
+        </h2>
         <p className="text-gray-600">Choose your preferred clinic location</p>
       </div>
 
@@ -79,23 +86,22 @@ export const LocationSelection: React.FC<LocationSelectionProps> = ({
               onClick={() => onLocationSelect(location)}
               className={`
                 p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-black
-                ${selectedLocation?.id === location.id 
-                  ? 'border-[#D1AA6D] bg-[#D1AA6D]/10'  
-                  : 'border-gray-200'
+                ${
+                  selectedLocation?.id === location.id
+                    ? "border-black bg-black text-white"
+                    : "border-gray-200"
                 }
               `}
             >
               <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-5 h-5  mt-0.5 flex-shrink-0" />
                 <div className="flex-1">
-                  <h3 className="font-medium text-gray-900">{location.name}</h3>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <h3 className="font-medium">{location.name}</h3>
+                  <p className="text-sm  mt-1">
                     {formatLocationAddress(location)}
                   </p>
                   {location.phoneNumber && (
-                    <p className="text-sm text-gray-500 mt-1">
-                      📞 {location.phoneNumber}
-                    </p>
+                    <p className="text-sm  mt-1 flex items-center gap-2 "><Phone className="h-4 w-4"/> {location.phoneNumber}</p>
                   )}
                 </div>
               </div>

@@ -92,17 +92,17 @@ export const ServiceSelection: React.FC<ServiceSelectionProps> = ({
               className={`
                 p-4 border-2 rounded-lg cursor-pointer transition-colors hover:border-black
                 ${selectedReason?.appointmentReasonId === reason.appointmentReasonId 
-                  ? 'border-[#D1AA6D] bg-[#D1AA6D]/10' 
+                  ? 'border-black bg-black text-white' 
                   : 'border-gray-200'
                 }
               `}
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-medium text-gray-900">{reason.appointmentReason}</h3>
-                  <p className="text-sm text-gray-500 mt-1">{reason.category}</p>
+                  <h3 className="font-medium">{reason.appointmentReason}</h3>
+                  <p className="text-sm mt-1">{reason.category}</p>
                 </div>
-                <span className="text-sm text-gray-900">{reason.duration} min</span>
+                <span className="text-sm ">{reason.duration} min</span>
               </div>
             </div>
           ))}

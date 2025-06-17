@@ -1,7 +1,7 @@
-// src/components/booking/SimpleCalendar.tsx
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+// src/components/booking/SimpleCalendar.tsx - Fixed date handling
+import React, { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SimpleCalendarProps {
   selectedDate: string | null;
@@ -14,55 +14,87 @@ export const SimpleCalendar: React.FC<SimpleCalendarProps> = ({
   selectedDate,
   onDateSelect,
   availableDates = [],
-  disabledDates = []
+  disabledDates = [],
 }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-  const lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+  const firstDayOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  );
+  const lastDayOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth() + 1,
+    0
+  );
   const firstDayWeekday = firstDayOfMonth.getDay();
   const daysInMonth = lastDayOfMonth.getDate();
 
   const previousMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
   };
 
   const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
   };
 
   const formatDate = (day: number): string => {
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth() + 1;
-    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    return `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const isDateAvailable = (day: number): boolean => {
-    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    const date = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      day
+    );
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     // Can't book in the past
     if (date < today) return false;
-    
+
     const dateStr = formatDate(day);
-    
+
     // Check if explicitly disabled
     if (disabledDates.includes(dateStr)) return false;
-    
-    // If availableDates is provided, only those dates are available
+
+    // Check day of week - no weekends for demo
+    const dayOfWeek = date.getDay();
+    if (dayOfWeek === 0 || dayOfWeek === 6) return false; // Sunday or Saturday
+
+    // If availableDates is provided and not empty, only those dates are available
     if (availableDates.length > 0) {
       return availableDates.includes(dateStr);
     }
-    
-    // Default: future dates are available
+
+    // Default: future weekdays are available
     return true;
   };
 
@@ -71,38 +103,64 @@ export const SimpleCalendar: React.FC<SimpleCalendarProps> = ({
   };
 
   const calendarDays = [];
-  
+
   // Add empty cells for days before the month starts
   for (let i = 0; i < firstDayWeekday; i++) {
-    calendarDays.push(
-      <div key={`empty-${i}`} className="h-10 w-10" />
-    );
+    calendarDays.push(<div key={`empty-${i}`} className="h-10 w-10" />);
   }
-  
+
   // Add all days of the month
   for (let day = 1; day <= daysInMonth; day++) {
     const available = isDateAvailable(day);
     const selected = isSelected(day);
-    
+
     calendarDays.push(
-      <button
+      <Button
         key={day}
-        onClick={() => available && onDateSelect(formatDate(day))}
-        disabled={!available}
-        className={`
-          h-10 w-10 rounded-lg text-sm font-medium transition-colors
-          ${selected 
-            ? 'bg-black text-white' 
-            : available 
-              ? 'hover:bg-gray-100 text-gray-900 border border-gray-200' 
-              : 'text-gray-300 cursor-not-allowed'
+        onClick={() => {
+          if (available) {
+            const dateStr = formatDate(day);
+            console.log("Calendar date selected:", dateStr);
+            onDateSelect(dateStr);
           }
-        `}
+        }}
+        size="icon"
+        disabled={!available}
+        variant={selected ? "default" : available ? "outline" : "ghost"}
       >
         {day}
-      </button>
+      </Button>
+      // <button
+      //   key={day}
+      //   onClick={() => {
+      //     if (available) {
+      //       const dateStr = formatDate(day);
+      //       console.log('Calendar date selected:', dateStr);
+      //       onDateSelect(dateStr);
+      //     }
+      //   }}
+      //   disabled={!available}
+      //   className={`
+      //     h-10 w-10 rounded-lg text-sm font-medium transition-colors
+      //     ${selected
+      //       ? 'bg-black text-white'
+      //       : available
+      //         ? 'hover:bg-gray-100 text-gray-900 border border-gray-200'
+      //         : 'text-gray-300 cursor-not-allowed'
+      //     }
+      //   `}
+      // >
+      //   {day}
+      // </button>
     );
   }
+
+  // Don't allow navigation to previous months if they're in the past
+  const today = new Date();
+  const canGoPrevious =
+    currentMonth.getFullYear() > today.getFullYear() ||
+    (currentMonth.getFullYear() === today.getFullYear() &&
+      currentMonth.getMonth() > today.getMonth());
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4">
@@ -112,6 +170,7 @@ export const SimpleCalendar: React.FC<SimpleCalendarProps> = ({
           variant="ghost"
           size="sm"
           onClick={previousMonth}
+          disabled={!canGoPrevious}
           className="p-2"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -119,30 +178,26 @@ export const SimpleCalendar: React.FC<SimpleCalendarProps> = ({
         <h3 className="text-lg font-semibold text-gray-900">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h3>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={nextMonth}
-          className="p-2"
-        >
+        <Button variant="ghost" size="sm" onClick={nextMonth} className="p-2">
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
 
       {/* Day Headers */}
       <div className="grid grid-cols-7 gap-1 mb-2">
-        {dayNames.map(day => (
-          <div key={day} className="h-10 flex items-center justify-center text-sm font-medium text-gray-500">
+        {dayNames.map((day) => (
+          <div
+            key={day}
+            className="h-10 flex items-center justify-center text-sm font-medium text-gray-500"
+          >
             {day}
           </div>
         ))}
       </div>
 
       {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-1">
-        {calendarDays}
-      </div>
-      
+      <div className="grid grid-cols-7 gap-1">{calendarDays}</div>
+
       {/* Legend */}
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
