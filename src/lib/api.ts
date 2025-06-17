@@ -13,7 +13,9 @@ export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${API_KEY}`, // Adjust based on your API's auth method
+    // 'Authorization': `Bearer ${API_KEY}`, // Adjust based on your API's auth method
+    'Apikey' : API_KEY
+    // 'X-Edi-ApiKey' : API_KEY
     // or if it's an API key header:
     // 'X-API-Key': API_KEY,
   },

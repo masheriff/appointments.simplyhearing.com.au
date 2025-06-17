@@ -1,0 +1,372 @@
+[
+  {
+    "appointmentReasonId": "e810e13a-7017-4055-1d9b-08dc68488afe",
+    "appointmentReason": "Evaluation - Workcover",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "bf8da748-919e-4821-1d9c-08dc68488afe",
+    "appointmentReason": "Follow up",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "b637375f-2d74-4e5f-1d9d-08dc68488afe",
+    "appointmentReason": "Care call",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "9835b76c-ab50-4279-1d9e-08dc68488afe",
+    "appointmentReason": "Pre Employment Test",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "b998e92f-9710-4cb8-1d9f-08dc68488afe",
+    "appointmentReason": "Sub Evaluation - Private",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "dd26f79f-028b-4ce9-62f6-08dc68488b2e",
+    "appointmentReason": "Evaluation - HSP",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "b0975c14-932c-437e-62f7-08dc68488b2e",
+    "appointmentReason": "Annual Review",
+    "duration": 30,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "aedf562c-4bb5-4921-62f8-08dc68488b2e",
+    "appointmentReason": "Wax Removal",
+    "duration": 30,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "8279022d-f151-4322-62f9-08dc68488b2e",
+    "appointmentReason": "Ear Impression",
+    "duration": 15,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "e100961a-b488-4a04-62fa-08dc68488b2e",
+    "appointmentReason": "Tinnitus Evaluation",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "27be1a05-2630-4dec-62fb-08dc68488b2e",
+    "appointmentReason": "Sub Evaluation - HSP",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "2790a76c-4d9d-40e1-62fc-08dc68488b2e",
+    "appointmentReason": "HA Fitting",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "5a21dc8d-6d1d-43ba-62fd-08dc68488b2e",
+    "appointmentReason": "Admin",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "d04a91f6-de3d-4c53-4a5d-08dc68488bb7",
+    "appointmentReason": "Evaluation - Private",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "021f01d1-58c5-48bc-4a5e-08dc68488bb7",
+    "appointmentReason": "Solution",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "c1117b6d-9c2c-4b3b-4a5f-08dc68488bb7",
+    "appointmentReason": "Service",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "557d447d-bd9f-4f4e-4a60-08dc68488bb7",
+    "appointmentReason": "Medical Evaluation",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "2c729bf9-48ff-46c7-4a61-08dc68488bb7",
+    "appointmentReason": "Rehab Plus 1",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "d093afce-a2fd-4aee-4a62-08dc68488bb7",
+    "appointmentReason": "Rehab Plus 2",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "6f544903-3c81-46aa-4a63-08dc68488bb7",
+    "appointmentReason": "Sub Evaluation - Workcover",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "502599e4-82e4-44ce-4a64-08dc68488bb7",
+    "appointmentReason": "Solution - Replace",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "c3c4bb5a-c40a-46bb-4a65-08dc68488bb7",
+    "appointmentReason": "Lunch",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "d9ea3043-967a-4376-55ba-08dc7426c64b",
+    "appointmentReason": "600 HSP Assessment",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "e4bd8cb3-b6ab-46c7-55bb-08dc7426c64b",
+    "appointmentReason": "HSP Follow up Appointment",
+    "duration": 45,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "b616c362-ba12-439a-3811-08dc7426df8f",
+    "appointmentReason": "Pvt Hearing Test",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "369b98b8-308a-4fe2-3817-08dc7426df8f",
+    "appointmentReason": "Assessment Private",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": null,
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "1e764e3f-d732-4eb2-92c8-08dca7caf257",
+    "appointmentReason": "940/930 Annual assessment",
+    "duration": 15,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "df0d18de-4eb7-44d6-51e1-08dca9fffb43",
+    "appointmentReason": "800 reassessment",
+    "duration": 15,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "59d59030-6be5-49ce-d761-08dcb837d83f",
+    "appointmentReason": "920",
+    "duration": 45,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "21ca9dd6-4b16-48af-ac35-08dccc1f21dc",
+    "appointmentReason": "670 - follow up",
+    "duration": 30,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "698e6b09-87fa-422e-3832-08dcd7a50631",
+    "appointmentReason": "670 - session 1",
+    "duration": 15,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "0a1f7290-d570-4fc5-d257-08dce34ffb0a",
+    "appointmentReason": "Troubleshoot",
+    "duration": 30,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "b9524648-0eb4-4c42-3ed3-08dce3504ca3",
+    "appointmentReason": "Troubleshooting",
+    "duration": 15,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "HSP",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "f71a4d5a-2cb9-4078-c7ae-08dd3ff09479",
+    "appointmentReason": "HEARING AID TRIAL & DISCUSSION",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "135fbdec-8393-4763-06ff-08dd8d51d355",
+    "appointmentReason": "Fitting appointment",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "fae925a5-56e5-43c5-44eb-08dd8dd75905",
+    "appointmentReason": "DVA Audiology test",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  },
+  {
+    "appointmentReasonId": "f872bb72-adca-4778-3dd0-08ddaa2a0e97",
+    "appointmentReason": "Audiology Assessment",
+    "duration": 60,
+    "category": "Private",
+    "categoryCode": "Private",
+    "appointmentType": "Priv",
+    "isActive": true,
+    "isResourceRequired": false
+  }
+]
