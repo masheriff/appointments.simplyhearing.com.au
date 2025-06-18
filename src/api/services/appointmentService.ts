@@ -11,7 +11,7 @@ import type {
 } from '@/types/api';
 
 // Flag to enable/disable mock mode
-const USE_MOCK_DATA = true; // Set to false when API is working
+const USE_MOCK_DATA = false; // Set to false when API is working
 
 export const appointmentService = {
   fetchAppointmentReasons: async (): Promise<AppointmentReason[]> => {
